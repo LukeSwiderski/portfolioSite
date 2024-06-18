@@ -1,0 +1,11 @@
+.card-row {
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.card {
+  margin-right: 10px; /* Adjust margin between cards */
+  width: 9rem;
+}
