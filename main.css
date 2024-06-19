@@ -3,9 +3,19 @@
   white-space: nowrap;
   display: flex;
   flex-wrap: nowrap;
+  height: auto;
+  padding: 10px;
 }
 
 .card {
   margin-right: 10px; /* Adjust margin between cards */
   width: 9rem;
+  height: 158px;
 }
+
+.card:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+

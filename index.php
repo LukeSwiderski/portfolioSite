@@ -32,19 +32,19 @@
       <div class="collapse navbar-collapse justify-content-center align-center" id="main-nav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="#topics" class="fw-bold nav-link">Home</a>
+            <a href="#" class="fw-bold nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#reviews" class="fw-bold nav-link">About</a>
+            <a href="#about" class="fw-bold nav-link">About</a>
           </li>
           <li class="nav-item">
-            <a href="#reviews" class="fw-bold nav-link">Tech</a>
+            <a href="#tech" class="fw-bold nav-link">Tech</a>
           </li>
           <li class="nav-item">
             <a href="#contact" class="fw-bold nav-link">Projects</a>
           </li>
           <li class="nav-item">
-            <a href="#pricing" class="fw-bold nav-link">Contact</a>
+            <a href="#contact" class="fw-bold nav-link">Contact</a>
           </li>
           <li class="nav-item">
             <a href="#pricing" class="fw-bold nav-link">Resume</a>
@@ -80,8 +80,8 @@
         <p>I started programming in 2018 and have worked on websites for people, businesses, and myself.  I've made apps to make my own life easier and I've worked on open-source projects like Mozilla Firefox and Google Chrome, successfully fixing numerous bugs.</p>
         <a href="#About" class="btn btn-dark btn-lg">More about me</a>
       </div>
-      <div class="col-md-5 text-center d-none d-md-block">
-        <img class="img-fluid rounded-4" src="./assets/working.png" alt="Luke working">
+      <div class="col-md-5 text-center d-md-block">
+        <img class="img-fluid rounded-4 mt-4" src="./assets/working.png" alt="Luke working">
       </div>
     </div>
   </div>
@@ -98,8 +98,8 @@
   <div id="cardRow" class="card-row">
     <!-- Cards get populated here -->
   </div>
-  <div id="tech-paragraph" class="mt-5">
-    
+  <div id="tech-paragraph" class="ml-5">
+    <!-- paragraph gets populated here -->
   </div>
 </div>
 </section>
