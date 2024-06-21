@@ -7,7 +7,7 @@
     techMap: {
       "JavaScript": [
         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
-        "JavaScript is my first language.  I have extensive experience using it to build apps, websites, solve leetcode problems and more!  I think in javaScript!"
+        "JavaScript is my first language.  I have extensive experience using it to build apps, websites, solve leetcode problems and more!  I think in javaScript!  This 'Tech Stack' section you're reading right now is itself a small app I wrote in javaScript! "
       ],
       "PHP": [
         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg",
