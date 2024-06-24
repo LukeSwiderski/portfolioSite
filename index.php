@@ -98,7 +98,7 @@
   <div id="cardRow" class="card-row">
     <!-- Cards get populated here -->
   </div>
-  <div id="tech-paragraph" class="ml-5">
+  <div id="tech-paragraph" class="ml-5 mt-3">
     <!-- paragraph gets populated here -->
   </div>
 </div>
