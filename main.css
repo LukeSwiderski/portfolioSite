@@ -26,3 +26,13 @@
 #contactFormParent {
   height: 500px;
 }
+
+#footer {
+  height: 120px;
+  font-size: 18px; /* Increase font size */
+  display: flex;
+  align-items: center;
+  flex-direction: column; /* Add this line */
+  justify-content: flex-end; /* Add this line */
+  align-items: center;
+}

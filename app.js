@@ -3,6 +3,7 @@
     init: function() {
       this.populateTechCards();
       this.handleContactForm();
+      this.caculateDate();
     },
 
     techMap: {
@@ -108,6 +109,11 @@
           })
           .catch((error) => console.error(error));
       });
+    },
+
+    caculateDate: function () {
+      const year = new Date().getFullYear();
+      document.getElementById('copyright-year').innerHTML = year;
     }
         
   };
