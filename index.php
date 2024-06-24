@@ -109,8 +109,11 @@
 <section id="contact">
   <div class="text-center">
     <h1 class="fw-bold">Contact</h1>
+    <div class="text-success mt-3 display-6" id="success-message">
+      <!-- success-message -->
+    </div>
   </div>
-  <div class="row justify-content-center my-5">
+  <div id="contactFormParent" class="row justify-content-center my-5">
     <div class="col-lg-6">
       <form id="contactForm" action="contactform.php" method="POST">
         <label for="email" class="form-label">Email address:</label>

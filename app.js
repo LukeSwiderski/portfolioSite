@@ -91,6 +91,7 @@
     },
     handleContactForm: function() {
       const form = document.getElementById('contactForm');
+      const successMessage = document.getElementById('success-message');
 
       form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -100,7 +101,11 @@
           body: formData,
         })
           .then((response) => response.text())
-          .then((message) => console.log(message))
+          .then((message) => {
+            console.log(message);
+            form.style.display = 'none'; // Hide the form
+            successMessage.innerHTML = "Email sent successfully!"; 
+          })
           .catch((error) => console.error(error));
       });
     }
