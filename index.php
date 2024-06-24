@@ -104,6 +104,51 @@
 </div>
 </section>
 
+<!-- Contact section -->
+
+<section id="contact">
+  <div class="text-center">
+    <h1 class="fw-bold">Contact</h1>
+  </div>
+  <div class="row justify-content-center my-5">
+    <div class="col-lg-6">
+      <form id="contactForm" action="contactform.php" method="POST">
+        <label for="email" class="form-label">Email address:</label>
+        <div class="mb-4 input-group">
+          <span class="input-group-text">
+            <i class="bi bi-envelope-fill"></i>
+          </span>
+          <input type="email" name="email" class="form-control" id="email" placeholder="e.g. yourname@example.com" required>
+        </div>
+
+        <label for="name" class="form-label">Name:</label>
+        <div class="input-group mb-4">
+          <span class="input-group-text">
+            <i class="bi bi-person-fill"></i>
+          </span>
+          <input type="text" name="name" class="form-control" id="name" placeholder="e.g. John" required>
+        </div>
+
+        <label for="subject" class="form-label">Subject:</label>
+        <div class="input-group mb-4">
+          <span class="input-group-text">
+            <i class="bi bi-tag-fill"></i>
+          </span>
+          <input type="text" name="subject" class="form-control" id="subject" placeholder="e.g. Feedback, Question, etc." required>
+        </div>
+
+        <div class="form-floating mb-4 mt-5">
+          <textarea class="form-control" name="message" id="message" style="height: 140px" required></textarea>
+          <label for="message">Your message...</label>
+        </div>
+        <div class="mb-4 text-center">
+          <button class="btn btn-dark" type="submit">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
 <script src="app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

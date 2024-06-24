@@ -2,6 +2,7 @@
   let App = {
     init: function() {
       this.populateTechCards();
+      this.handleContactForm();
     },
 
     techMap: {
@@ -87,7 +88,23 @@
       let textArea = document.getElementById('tech-paragraph');
       dataId = e.target.closest('.card-body').getAttribute('data-id');
       textArea.innerHTML = this.techMap[dataId][1];
+    },
+    handleContactForm: function() {
+      const form = document.getElementById('contactForm');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        fetch('contactform.php', {
+          method: 'POST',
+          body: formData,
+        })
+          .then((response) => response.text())
+          .then((message) => console.log(message))
+          .catch((error) => console.error(error));
+      });
     }
+        
   };
 
   App.init();
