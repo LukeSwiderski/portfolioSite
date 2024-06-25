@@ -1,0 +1,15 @@
+# Ignore IDE/project-specific files
+.idea/
+.vscode/
+
+# Ignore Composer dependencies
+/vendor/
+
+# Ignore environment variables file
+env.php
+
+# Ignore log files
+/logs/
+
+# Ignore any other sensitive or generated files
+*.log
