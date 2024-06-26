@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
       <!-- Devicon -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.10.1/devicon.min.css">
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> 
     <title>Luke Swiderski</title>
     <style>
       section{
@@ -109,9 +110,6 @@
     <section id="contact">
       <div class="text-center">
         <h1 class="fw-bold">Contact</h1>
-        <div class="text-success mt-3 display-6" id="success-message">
-          <!-- success-message -->
-        </div>
       </div>
       <div id="contactFormParent" class="row justify-content-center my-5">
         <div class="col-lg-6">
@@ -144,6 +142,10 @@
               <textarea class="form-control" name="message" id="message" style="height: 140px" required></textarea>
               <label for="message">Your message...</label>
             </div>
+            <!-- Turnstile captcha -->
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAdW9YiIH338KQbR"></div> 
+            <div id="turnstile-error" class="text-danger"></div>
+
             <div class="mb-4 text-center">
               <button class="btn btn-dark" type="submit">Send</button>
             </div>

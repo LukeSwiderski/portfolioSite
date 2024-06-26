@@ -90,26 +90,42 @@
       dataId = e.target.closest('.card-body').getAttribute('data-id');
       textArea.innerHTML = this.techMap[dataId][1];
     },
-    handleContactForm: function() {
-      const form = document.getElementById('contactForm');
-      const successMessage = document.getElementById('success-message');
 
+    handleContactForm: function () {
+      const form = document.getElementById('contactForm');
+      const contactFormParent = document.getElementById('contactFormParent');
+      const turnstileError = document.getElementById('turnstile-error');
+    
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+    
+        // Validate Turnstile captcha
+        const turnstileResponse = document.querySelector('.cf-turnstile input[name="cf-turnstile-response"]').value;
+        if (!turnstileResponse) {
+          turnstileError.innerHTML = "Please complete the captcha.";
+          return;
+        }
+    
+        turnstileError.innerHTML = "";
+    
         const formData = new FormData(form);
+        formData.append('cf-turnstile-response', turnstileResponse); 
+    
         fetch('contactform.php', {
           method: 'POST',
           body: formData,
         })
-          .then((response) => response.text())
-          .then((message) => {
-            console.log(message);
-            form.style.display = 'none'; // Hide the form
-            successMessage.innerHTML = "Email sent successfully!"; 
-          })
-          .catch((error) => console.error(error));
+        .then((response) => response.text())
+        .then((message) => {
+          console.log(message);
+          form.style.display = 'none'; 
+          contactFormParent.className = 'sent text-center';
+          contactFormParent.innerHTML = "Email sent successfully!";
+        })
+        .catch((error) => console.error(error));
       });
     },
+    
 
     caculateDate: function () {
       const year = new Date().getFullYear();
