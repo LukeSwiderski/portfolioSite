@@ -76,6 +76,7 @@
         let image = document.createElement('img');
         image.src = value;
         image.className = "card-img-top";
+        image.loading = "lazy";
         cardBody.appendChild(image);
         cardBody.appendChild(headline);
         cardBody.setAttribute('data-id', key);
@@ -126,7 +127,6 @@
       });
     },
     
-
     caculateDate: function () {
       const year = new Date().getFullYear();
       document.getElementById('copyright-year').innerHTML = year;

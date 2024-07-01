@@ -82,7 +82,7 @@
             <a href="#About" class="btn btn-dark btn-lg">More about me</a>
           </div>
           <div class="col-md-5 text-center d-md-block">
-            <img class="img-fluid rounded-4 mt-4" src="./assets/working.png" alt="Luke working">
+            <img class="img-fluid rounded-4 mt-4" src="./assets/working.png" loading="lazy" alt="Luke working">
           </div>
         </div>
       </div>
