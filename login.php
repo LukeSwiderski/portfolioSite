@@ -1,4 +1,7 @@
 <?php
+  ini_set('display_errors', 1);
+  error_reporting(E_ALL);
+
   require_once 'includes/config_session.inc.php';
   require_once 'includes/login_view.inc.php';
 ?>
@@ -69,7 +72,7 @@
       </div>
       <div id="loginFormParent" class="row justify-content-center my-5">
         <div class="col-md-4">
-          <form id="loginForm" action="login.inc.php" method="POST">
+          <form id="loginForm" action="includes/login.inc.php" method="POST">
             <label for="username" class="form-label">Username</label>
             <div class="mb-4 input-group">
               <span class="input-group-text">
@@ -83,7 +86,7 @@
               <span class="input-group-text">
                 <i class="bi"></i>
               </span>
-              <input type="text" name="password" class="form-control" id="password" required>
+              <input type="password" name="password" class="form-control" id="password" required>
             </div>
             <div class="mb-4 text-center">
               <button class="btn btn-dark" type="submit">Submit</button>

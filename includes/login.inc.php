@@ -1,8 +1,10 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = $_POST["username"];
-  $pwd = $_POST["pwd"];
+  $pwd = $_POST["password"];
 
   try {
     require_once 'dbh.inc.php';
@@ -17,10 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors["empty_input"] = "Fill in all fields!";
       }
 
-      $result = $get_user($pdo, $username);
+      $result = get_user($pdo, $username);
 
       if (is_username_wrong($result)) {
-        $errors["login_incorrect"] = "Incorrect login info!";
+        $errors["login_incorrect"] = "Incorrect login info user!";
       }
 
       if (!is_username_wrong($result) && is_password_wrong($pwd, $result["pwd"])) {
@@ -44,6 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION["username"] = htmlspecialchars($result["username"]);
 
       $_SESSION["last_regeneration"] = time();
+
+      header("location: ../login.php?login=success");
       $pdo = null;
       $stmt = null;
 
