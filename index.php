@@ -23,46 +23,10 @@
   </head>
   <body>
 
-    <!-- navbar -->
-    <nav class="navbar sticky-top navbar-expand-md navbar-light bg-light">
-      <div class="container-xxl">
-          <!-- toggle button for mobile nav -->
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-          data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
-          aria-label="target-navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <?php include 'nav.php'; ?>
 
-        <!-- nav bar links -->
-        <div class="collapse navbar-collapse justify-content-center align-center" id="main-nav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a href="#" class="fw-bold nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="#about" class="fw-bold nav-link">About</a>
-            </li>
-            <li class="nav-item">
-              <a href="#tech" class="fw-bold nav-link">Tech</a>
-            </li>
-            <li class="nav-item">
-              <a href="#contact" class="fw-bold nav-link">Projects</a>
-            </li>
-            <li class="nav-item">
-              <a href="#contact" class="fw-bold nav-link">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a href="#pricing" class="fw-bold nav-link">Resume</a>
-            </li>
-            <li class="nav-item">
-              <a href="#pricing" class="fw-bold nav-link">Login</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
     <!-- Main hero section -->
-    <section class="bg-light" id="hero">
+    <section id="top" class="bg-light" id="hero">
       <div class="container-lg">
         <div class="row align-items-center">
           <div class="col-md-5 text-center text-md-start offset-md-1 mt-md-5">
