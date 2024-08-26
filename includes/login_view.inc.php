@@ -17,6 +17,6 @@ function check_login_errors() {
 
     unset($_SESSION["errors_login"]);
   } else if (isset($_GET['login']) && $_GET['login'] === "success") {
-    echo '<p class="form-success">Login Success!</p>';
+    echo '<p class="text-center text-success">Login Success!</p>';
   }
 }

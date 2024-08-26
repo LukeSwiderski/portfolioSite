@@ -30,9 +30,12 @@
           <a href="index.php#resume" class="fw-bold nav-link">Resume</a>
         </li>
         <li class="nav-item">
+          <a href="dashboard.php" class="fw-bold nav-link">Dashboard</a>
+        </li>
+        <li class="nav-item">
           <?php
           if (isset($_SESSION['username'])) {
-            echo '<a href="dashboard.php" class="fw-bold nav-link">Dashboard</a>';
+            echo '<a href="logout.php" class="fw-bold nav-link">Logout</a>';
           } else {
             echo '<a href="login.php" class="fw-bold nav-link">Login</a>';
           }
@@ -42,3 +45,4 @@
     </div>
   </div>
 </nav>
+

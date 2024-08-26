@@ -22,8 +22,9 @@
     </style>
   </head>
   <body>
-
-    <?php include 'nav.php'; ?>
+    <div class="fixed-top">
+      <?php include 'header.php'; ?>
+    </div>
 
     <!-- Main hero section -->
     <section id="top" class="bg-light" id="hero">

@@ -134,5 +134,7 @@
         
   };
 
+  if (window.location.href.includes('index.php')) {
   App.init();
+}
 })();

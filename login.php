@@ -24,7 +24,7 @@
     </style>
   </head>
   <body>
-    <?php include 'nav.php'; ?>
+    <?php include 'header.php'; ?>
     
 
     <!-- Login section -->
