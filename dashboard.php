@@ -28,84 +28,113 @@
   <!-- Message section -->
 
   <section id="message">
-      <div class="text-center">
-        <h1 class="fw-bold">Message</h1>
-      </div>
-      <div id="messageFormParent" class="row justify-content-center my-5">
-        <div class="col-md-4">
-        <div class="row mb-4">
-                <div class="col-md-2">
-                    <label for="dropdown1" class="form-label fw-bold">Venues</label>
-                    <select class="form-select" name="dropdown1">
-                        <option value="">The Back Porch</option>
-                        <option value="option1">Cody's Sumter</option>
-                        <option value="option2">Edna's</option>
-                        <option value="option3">Holy Sh'mokes</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="dropdown1" class="form-label fw-bold">Month</label>
-                    <select class="form-select" name="dropdown2">
-                        <option value="">Jan</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">Option 3</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="dropdown1" class="form-label fw-bold">Date</label>
-                    <select class="form-select" name="dropdown3">
-                        <option value="">Select Option 3</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">Option 3</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="dropdown1" class="form-label fw-bold">Start</label>
-                    <select class="form-select" name="dropdown4">
-                        <option value="">Select Option 4</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">Option 3</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="dropdown1" class="form-label fw-bold">End</label>
-                    <select class="form-select" name="dropdown5">
-                        <option value="">Select Option 5</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">Option 3</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="dropdown1" class="form-label fw-bold">Message</label>
-                    <select class="form-select" name="dropdown6">
-                        <option value="">Select Option 6</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">Option 3</option>
-                    </select>
-                </div>
+    <div class="text-center">
+      <h1 class="fw-bold">Message</h1>
+    </div>
+    <div id="messageFormParent" class="row justify-content-center my-5">
+      <div class="col-md-8">
+        <form id="messageForm" action="includes/message.inc.php" method="POST">
+          <div class="row mb-4 align-items-start">
+            <div class="col-md-2 mb-3">
+              <label for="venue-select" class="form-label fw-bold">Venues</label>
+              <select class="form-select w-auto" id='venue-select' name="venue-select">
+                <option value="">Select Venue</option>
+                <option value="">The Back Porch</option>
+                <option value="option1">Cody's Sumter</option>
+                <option value="option2">Edna's</option>
+                <option value="option3">Holy Sh'mokes</option>
+              </select>
             </div>
-          <form id="messageForm" action="includes/message.inc.php" method="POST">
-            <label for="name" class="form-label"></label>
-            <div class="input-group mb-4 justify-content-center">
-              <span class="input-group-text">
-                <i class="bi"></i>
-              </span>
-              <textarea name="description" rows="5" cols="60"></textarea>
+            <div class="col-md-2 mb-3">
+              <label for="month-select" class="form-label fw-bold">Month</label>
+              <select class="form-select w-auto" id="month-select" name="month-select">
+                <option value="">Select Month</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
             </div>
-            <div class="mb-4 text-center">
-              <button class="btn btn-dark" type="submit">Preview</button>
-              <button class="btn btn-dark" type="submit">Submit</button>
-              <button class="btn btn-dark" type="submit">Clear</button>
-            </div>
-          </form>
+            <div class="col-md-2 mb-3">
+            <label for="date-select" class="form-label fw-bold">Date</label>
+            <select class="form-select w-auto" id="date-select" name="date-select">
+              <option value="">Select Date</option>
+            </select>
+          </div>
+          <div class="col-md-2 mb-3">
+            <label for="start-select" class="form-label fw-bold">Start</label>
+            <select class="form-select w-auto" id="start-select" name="start-select">
+              <option value="">Select Start</option>
+              <option value="09:00">9:00 AM</option>
+              <option value="10:00">10:00 AM</option>
+              <option value="11:00">11:00 AM</option>
+              <option value="12:00">12:00 PM</option>
+              <option value="13:00">1:00 PM</option>
+              <option value="14:00">2:00 PM</option>
+              <option value="15:00">3:00 PM</option>
+              <option value="16:00">4:00 PM</option>
+              <option value="17:00">5:00 PM</option>
+              <option value="18:00">6:00 PM</option>
+              <option value="19:00">7:00 PM</option>
+              <option value="20:00">8:00 PM</option>
+              <option value="21:00">9:00 PM</option>
+              <option value="22:00">10:00 PM</option>
+              <option value="23:00">11:00 PM</option>
+            </select>
+          </div>
+          <div class="col-md-2 mb-3">
+            <label for="end-select" class="form-label fw-bold">End</label>
+            <select class="form-select w-auto" id="end-select" name="end-select">
+              <option value="">Select End</option>
+              <option value="09:00">9:00 AM</option>
+              <option value="10:00">10:00 AM</option>
+              <option value="11:00">11:00 AM</option>
+              <option value="12:00">12:00 PM</option>
+              <option value="13:00">1:00 PM</option>
+              <option value="14:00">2:00 PM</option>
+              <option value="15:00">3:00 PM</option>
+              <option value="16:00">4:00 PM</option>
+              <option value="17:00">5:00 PM</option>
+              <option value="18:00">6:00 PM</option>
+              <option value="19:00">7:00 PM</option>
+              <option value="20:00">8:00 PM</option>
+              <option value="21:00">9:00 PM</option>
+              <option value="22:00">10:00 PM</option>
+              <option value="23:00">11:00 PM</option>
+            </select>
+          </div>
+          <div class="col-md-2 mb-3">
+            <label for="message-select" class="form-label fw-bold">Message</label>
+            <select class="form-select w-auto" id="message-select" name="message-select">
+              <option value="">Select Message</option>
+              <option value="new">New</option>
+              <option value="reminder">Reminder</option>
+              
+            </select>
+          </div>
         </div>
-      </div>
-    </section>
+        <label for="message-area" class="form-label"></label>
+        <div class="input-group mb-4 justify-content-center">
+          <textarea name="message-area" id="message-area" rows="10" cols="80"></textarea>
+        </div>
+        <div class="mb-4 text-center">
+          <button class="btn btn-dark" type="submit">Preview</button>
+          <button class="btn btn-dark" type="submit">Submit</button>
+          <button class="btn btn-dark" type="submit">Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 
 </body>
 </html>
+<script src="dashboard.js"></script>
