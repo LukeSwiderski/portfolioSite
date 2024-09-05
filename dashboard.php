@@ -1,6 +1,20 @@
+<?php 
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+
+  function errorHandler($errno, $errstr, $errfile, $errline) {
+    echo "<b>Error:</b> [$errno] $errstr<br>";
+    echo "File: $errfile<br>";
+    echo "Line: $errline<br>";
+  }
+
+  set_error_handler("errorHandler");
+?>
+
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -11,7 +25,6 @@
         padding: 60px 0;
       }
     </style>
-  </head>
 </head>
 <body>
   <?php 
@@ -21,6 +34,9 @@
       header('Location: login.php');
       exit;
     }
+    include 'includes/dashboard_model.inc.php';
+    include 'includes/dashboard_contr.inc.php';
+    include 'includes/dbh.inc.php';
   ?>
 
   <h2 class="fw-bold text-center">Dashboard</h2>
@@ -37,13 +53,14 @@
           <div class="row mb-4 align-items-start">
             <div class="col-md-2 mb-3">
               <label for="venue-select" class="form-label fw-bold">Venues</label>
-              <select class="form-select w-auto" id='venue-select' name="venue-select">
-                <option value="">Select Venue</option>
-                <option value="">The Back Porch</option>
-                <option value="option1">Cody's Sumter</option>
-                <option value="option2">Edna's</option>
-                <option value="option3">Holy Sh'mokes</option>
-              </select>
+              <?php 
+                $venueController = new VenueController(new Venue($pdo));
+                $venues = $venueController->getVenues();
+              ?>
+              <?php 
+                include "includes/dashboard_view.inc.php"; 
+                displayVenues($venues);
+              ?>
             </div>
             <div class="col-md-2 mb-3">
               <label for="month-select" class="form-label fw-bold">Month</label>
@@ -126,7 +143,7 @@
           <textarea name="message-area" id="message-area" rows="10" cols="80"></textarea>
         </div>
         <div class="mb-4 text-center">
-          <button class="btn btn-dark" type="submit">Preview</button>
+          <button class="btn btn-dark" type="submit">Generate</button>
           <button class="btn btn-dark" type="submit">Submit</button>
           <button class="btn btn-dark" type="submit">Clear</button>
         </div>
