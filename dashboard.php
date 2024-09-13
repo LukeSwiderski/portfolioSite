@@ -49,7 +49,7 @@
     </div>
     <div id="messageFormParent" class="row justify-content-center my-5">
       <div class="col-md-8">
-        <form id="messageForm" action="includes/message.inc.php" method="POST">
+        <form id="messageForm" action="" method="POST">
           <div class="row mb-4 align-items-start">
             <div class="col-md-2 mb-3">
               <label for="venue-select" class="form-label fw-bold">Venues</label>
@@ -132,8 +132,8 @@
             <label for="message-select" class="form-label fw-bold">Message</label>
             <select class="form-select w-auto" id="message-select" name="message-select">
               <option value="">Select Message</option>
-              <option value="new">New</option>
-              <option value="reminder">Reminder</option>
+              <option value="1">New</option>
+              <option value="2">Reminder</option>
               
             </select>
           </div>
@@ -141,11 +141,12 @@
         <label for="message-area" class="form-label"></label>
         <div class="input-group mb-4 justify-content-center">
           <textarea name="message-area" id="message-area" rows="10" cols="80"></textarea>
+          <input type="hidden" id="hidden-html-message" name="html-message">
         </div>
         <div class="mb-4 text-center">
-          <button class="btn btn-dark" type="submit">Generate</button>
-          <button class="btn btn-dark" type="submit">Submit</button>
-          <button class="btn btn-dark" type="submit">Clear</button>
+          <button class="btn btn-dark" id="generate-btn" type="button">Generate</button>
+          <button class="btn btn-dark" id="submit-btn" type="submit">Submit</button>
+          <button class="btn btn-dark" id="clear-btn" type="button">Clear</button>
         </div>
       </form>
     </div>
