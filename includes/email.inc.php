@@ -4,13 +4,14 @@ function generateMessage($venue, $month, $date, $startTime, $endTime, $messageTy
   $plainMessage = '';
   $htmlMessage = '';
   $subject = '';
+  $date = date('F jS', strtotime($month . '/' . $date));
 
   if ($messageType == 1) {
-    $plainMessage = "Hi friends, just writing to let you know I'll be playing at $venue on $month $date from $startTime-$endTime. Have a great day!";
-    $subject = "New Show: $venue on $month $date";
+    $plainMessage = "Hi friends, just writing to let you know I'll be playing at $venue on $date from $startTime-$endTime. Have a great day!";
+    $subject = "New Show: $venue on $date";
   } else if ($messageType == 2) {
-    $plainMessage = "Reminder: I'll be playing at $venue on $month $date from $startTime-$endTime! Hope to see you there!";
-    $subject = "Reminder: $venue on $month $date";
+    $plainMessage = "Reminder: I'll be playing at $venue on $date from $startTime-$endTime! Hope to see you there!";
+    $subject = "Reminder: $venue on $date";
   } else {
     $plainMessage = $messageArea;
     $subject = 'Hello Friends';
