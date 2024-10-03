@@ -13,3 +13,4 @@ env.php
 
 # Ignore any other sensitive or generated files
 *.log.DS_Store
+includes/email_script.log
