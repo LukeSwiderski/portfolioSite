@@ -10,7 +10,7 @@ class Venue {
   }
 
   public function getVenues() {
-    $sql = "SELECT venue_name FROM venues";
+    $sql = "SELECT venue_name, address, city, state, zip FROM venues";
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

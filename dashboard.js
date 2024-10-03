@@ -54,14 +54,20 @@ document.addEventListener('DOMContentLoaded', function () {
     // Generate button click handler
   document.getElementById('generate-btn').addEventListener('click', function() {
     if (validateFormForGenerate()) {
-      const venue = document.getElementById('venue-select').value;
+      const venueSelect = document.getElementById('venue-select');
+      const selectedOption = venueSelect.options[venueSelect.selectedIndex];
+      const venue = venueSelect.value;
+      const address = selectedOption.dataset.address;
+      const city = selectedOption.dataset.city;
+      const state = selectedOption.dataset.state;
+      const zip = selectedOption.dataset.zip;
       const month = document.getElementById('month-select').value;
       const date = document.getElementById('date-select').value;
       const startTime = document.getElementById('start-select').value;
       const endTime = document.getElementById('end-select').value;
       const messageType = parseInt(document.getElementById('message-select').value);
     
-      generateMessage(venue, month, date, startTime, endTime, messageType)
+      generateMessage(venue, address, city, state, zip, month, date, startTime, endTime, messageType)
       .then((data) => {
         console.log('Received data:', data); // For debugging
         if (data.success && data.messageData) {
@@ -93,14 +99,20 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    const venue = document.getElementById('venue-select').value;
+    const venueSelect = document.getElementById('venue-select');
+    const selectedOption = venueSelect.options[venueSelect.selectedIndex];
+    const venue = venueSelect.value;
+    const address = selectedOption.dataset.address;
+    const city = selectedOption.dataset.city;
+    const state = selectedOption.dataset.state;
+    const zip = selectedOption.dataset.zip;
     const month = document.getElementById('month-select').value;
     const date = document.getElementById('date-select').value;
     const startTime = document.getElementById('start-select').value;
     const endTime = document.getElementById('end-select').value;
     const messageType = parseInt(document.getElementById('message-select').value);
 
-    generateMessage(venue, month, date, startTime, endTime, messageType, 'send', plainMessage, htmlMessage)
+    generateMessage(venue, address, city, state, zip, month, date, startTime, endTime, messageType, 'send', messageArea, htmlMessage)
       .then((data) => {
         console.log('Server response:', data);
         if (data.success) {
@@ -115,25 +127,38 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   });
 
-
-
   // Clear button click handler
   document.getElementById('clear-btn').addEventListener('click', function() {
     document.getElementById('message-area').value = '';
   });
 
   // Function to generate the message based on the selected values
-  function generateMessage(venue, month, date, startTime, endTime, messageType, action, plainMessage = '', htmlMessage = '') {
+  function generateMessage(venue, address, city, state, zip, month, date, startTime, endTime, messageType, action = '', plainMessage = '', htmlMessage = '') {
     return fetch('http://localhost/LukeSwiderski/includes/email.inc.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        venue, month, date, startTime, endTime, messageType, action, plainMessage, htmlMessage
+        venue, address, city, state, zip, month, date, startTime, endTime, messageType, action, plainMessage, htmlMessage
       })
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        return response.text().then(text => {
+          throw new Error(`HTTP error! status: ${response.status}, body: ${text}`);
+        });
+      }
+      return response.text();
+    })
+    .then(text => {
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        console.error('Server response was not valid JSON:', text);
+        throw new Error('The server response was not valid JSON');
+      }
+    })
     .catch(error => {
       console.error('Fetch error:', error);
       throw error;

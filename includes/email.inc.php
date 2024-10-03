@@ -19,19 +19,20 @@ logMessage("Script started");
 $username = $_ENV['EMAIL_USERNAME'];
 $password = $_ENV['EMAIL_PASSWORD'];
 
-function generateMessage($venue, $month, $date, $startTime, $endTime, $messageType, $messageArea) {
+function generateMessage($venue, $address, $city, $state, $zip, $month, $date, $startTime, $endTime, $messageType, $messageArea = '') {
   $plainMessage = '';
   $htmlMessage = '';
   $subject = '';
   $date = date('F jS', strtotime($month . '/' . $date));
   $start_time = date('g:i A', strtotime($startTime));
   $end_time = date('g:i A', strtotime($endTime));
+  $fullAddress = "$address, $city, $state $zip";
 
   if ($messageType == 1) {
-    $plainMessage = "Hi friends, just writing to let you know I'll be playing at $venue on $date from $start_time-$end_time. Have a great day!";
+    $plainMessage = "Hi friends, just writing to let you know I'll be playing at $venue on $date from $start_time-$end_time. The venue is located at $fullAddress. Have a great day!";
     $subject = "$venue on $date";
   } else if ($messageType == 2) {
-    $plainMessage = "Reminder: I'll be playing at $venue on $date from $start_time-$end_time! Hope to see you there!";
+    $plainMessage = "Reminder: I'll be playing at $venue on $date from $start_time-$end_time! The venue is located at $fullAddress. Hope to see you there!";
     $subject = "Reminder: $venue on $date";
   } else {
     $plainMessage = $messageArea;
@@ -42,7 +43,6 @@ function generateMessage($venue, $month, $date, $startTime, $endTime, $messageTy
     <table border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; border: 1px solid #ddd;">
       <tr>
         <td align="center" valign="top">
-          <!-- <img src="../assets/LukeFlyer.png" alt="Promotional Photo" style="width: 100%; max-width: 600px; height: auto;"> -->
           <img src="https://via.placeholder.com/600x400.png?text=Luke's+Promotional+Photo" alt="Promotional Photo" style="width: 100%; max-width: 600px; height: auto;">
         </td>
       </tr>
@@ -51,6 +51,7 @@ function generateMessage($venue, $month, $date, $startTime, $endTime, $messageTy
           <h1 style="font-size: 24px; color: #333;">{$subject}</h1>
           <p style="font-size: 18px; color: #666; line-height: 1.5;">
             {$plainMessage}<br><br>
+            Venue Address: {$fullAddress}<br><br>
             Best, Luke
           </p>
         </td>
@@ -69,12 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $data = json_decode(file_get_contents('php://input'), true);
   logMessage("Decoded JSON data: " . print_r($data, true));
 
-  if (!isset($data['venue'], $data['month'], $data['date'], $data['startTime'], $data['endTime'], $data['messageType'])) {
+  if (!isset($data['venue'], $data['address'], $data['city'], $data['state'], $data['zip'], $data['month'], $data['date'], $data['startTime'], $data['endTime'], $data['messageType'])) {
     echo json_encode(['error' => 'Invalid request data']);
     exit;
   }
 
-  $messageData = generateMessage($data['venue'], $data['month'], $data['date'], $data['startTime'], $data['endTime'], $data['messageType'], $data['messageArea'] ?? '');
+  $messageData = generateMessage($data['venue'], $data['address'], $data['city'], $data['state'], $data['zip'], $data['month'], $data['date'], $data['startTime'], $data['endTime'], $data['messageType'], $data['plainMessage'] ?? '');
   logMessage("Message generated: " . print_r($messageData, true));
 
   if (isset($data['action']) && $data['action'] === 'send') {
