@@ -12,4 +12,4 @@ env.php
 /logs/
 
 # Ignore any other sensitive or generated files
-*.log
+*.log.DS_Store
