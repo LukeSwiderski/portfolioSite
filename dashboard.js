@@ -95,9 +95,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const htmlMessage = document.getElementById('hidden-html-message').value;
 
     if (!messageArea) {
-      alert('Please enter a message or generate one using the form.');
+      console.error('Message area element not found!');
+      alert('Please write or generate a message using the drop down menues.');
       return;
     }
+  
+    console.log('Message area value:', messageArea.value);
+  
 
     const venueSelect = document.getElementById('venue-select');
     const selectedOption = venueSelect.options[venueSelect.selectedIndex];
@@ -124,6 +128,21 @@ document.addEventListener('DOMContentLoaded', function () {
       .catch((error) => {
         console.error('Error:', error);
         alert('Error sending email: ' + error.message);
+      })
+      .finally(() => {
+        // Reset form regardless of success or failure
+        document.getElementById('venue-select').selectedIndex = 0;
+        document.getElementById('month-select').selectedIndex = 0;
+        document.getElementById('date-select').innerHTML = '<option value="">Select Date</option>';
+        document.getElementById('date-select').disabled = true;
+        document.getElementById('start-select').selectedIndex = 0;
+        document.getElementById('end-select').selectedIndex = 0;
+        document.getElementById('message-select').selectedIndex = 0;
+        
+        document.getElementById('message-area').value = "";
+        document.getElementById('hidden-html-message').value = '';
+
+        console.log('Form reset completed');
       });
   });
 
