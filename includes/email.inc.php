@@ -1,5 +1,6 @@
 <?php
 
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', '/Applications/XAMPP/xamppfiles/logs/php_error_log');
@@ -20,43 +21,66 @@ $username = $_ENV['EMAIL_USERNAME'];
 $password = $_ENV['EMAIL_PASSWORD'];
 
 function generateMessage($venue, $address, $city, $state, $zip, $month, $date, $startTime, $endTime, $messageType, $messageArea = '') {
-  $plainMessage = '';
   $htmlMessage = '';
-  $subject = '';
   $date = date('F jS', strtotime($month . '/' . $date));
   $start_time = date('g:i A', strtotime($startTime));
   $end_time = date('g:i A', strtotime($endTime));
+  $address = htmlspecialchars($address, ENT_QUOTES, 'UTF-8');
+  $city = htmlspecialchars($city, ENT_QUOTES, 'UTF-8');
+  $state = htmlspecialchars($state, ENT_QUOTES, 'UTF-8');
+  $zip = htmlspecialchars($zip, ENT_QUOTES, 'UTF-8');
   $fullAddress = "$address, $city, $state $zip";
 
   if ($messageType == 1) {
-    $plainMessage = "Hi friends, just writing to let you know I'll be playing at $venue on $date from $start_time-$end_time. The venue is located at $fullAddress. Have a great day!";
+    $plainMessage = "Hi friends, just writing to let you know I'll be playing at $venue on $date from $start_time-$end_time. Have a great day!";
     $subject = "$venue on $date";
   } else if ($messageType == 2) {
-    $plainMessage = "Reminder: I'll be playing at $venue on $date from $start_time-$end_time! The venue is located at $fullAddress. Hope to see you there!";
+    $plainMessage = "Reminder: I'll be playing at $venue on $date from $start_time-$end_time! Hope to see you there!";
     $subject = "Reminder: $venue on $date";
   } else {
     $plainMessage = $messageArea;
     $subject = 'Hello Friends';
   }
 
-  $htmlMessage = <<<EOD
-    <table border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; border: 1px solid #ddd;">
-      <tr>
-        <td align="center" valign="top">
-          <img src="https://via.placeholder.com/600x400.png?text=Luke's+Promotional+Photo" alt="Promotional Photo" style="width: 100%; max-width: 600px; height: auto;">
-        </td>
-      </tr>
-      <tr>
-        <td align="center" valign="top" style="padding: 20px; font-family: Arial, sans-serif; background-color: #f9f9f9;">
-          <h1 style="font-size: 24px; color: #333;">{$subject}</h1>
-          <p style="font-size: 18px; color: #666; line-height: 1.5;">
-            {$plainMessage}<br><br>
-            Venue Address: {$fullAddress}<br><br>
+$htmlMessage = <<<EOD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luke's Gig Announcement</title>
+    <!--[if !mso]><!-->
+    <style type="text/css">
+        @media only screen and (max-width: 480px) {
+            .mobile-text { font-size: 18px !important; }
+            .mobile-heading { font-size: 22px !important; }
+            .mobile-container { padding: 10px !important; }
+        }
+    </style>
+    <!--<![endif]-->
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; margin: 0; padding: 0;">
+    <div class="mobile-container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+        <img src="https://via.placeholder.com/600x300.png?text=Luke's+Promotional+Photo" alt="Luke's Promotional Photo" style="max-width: 100%; height: auto; width: 100%; max-width: 600px;">
+        
+        <h1 class="mobile-heading" style="font-size: 24px; color: #333333; margin-bottom: 20px;">
+            {$subject}
+        </h1>
+        
+        <p class="mobile-text" style="font-size: 16px; margin-bottom: 15px;">
+            {$plainMessage}
+        </p>
+        
+        <p class="mobile-text" style="font-size: 16px; margin-bottom: 15px; font-style: italic; margin-top: 10px;">
+            Venue Address: {$fullAddress}
+        </p>
+        
+        <p class="mobile-text" style="font-size: 16px; margin-top: 20px; font-weight: bold;">
             Best, Luke
-          </p>
-        </td>
-      </tr>
-    </table>
+        </p>
+    </div>
+</body>
+</html>
 EOD;
   return [
     "plainMessage" => $plainMessage,
