@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  function validateFormForGenerate() {
+  window.validateFormForGenerate = function () {
     const venue = document.getElementById('venue-select').value;
     const month = document.getElementById('month-select').value;
     const date = document.getElementById('date-select').value;
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Function to generate the message based on the selected values
-  function generateMessage(venue, address, city, state, zip, month, date, startTime, endTime, messageType, action = '', plainMessage = '', htmlMessage = '') {
+  window.generateMessage = function (venue, address, city, state, zip, month, date, startTime, endTime, messageType, action = '', plainMessage = '', htmlMessage = '') {
     return fetch('http://localhost/LukeSwiderski/includes/email.inc.php', {
       method: 'POST',
       headers: {

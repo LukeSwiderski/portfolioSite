@@ -1,0 +1,16 @@
+{
+  "name": "lukeswiderski",
+  "version": "1.0.0",
+  "description": "Luke Swiderski's project including email service",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest --verbose --detectOpenHandles --runInBand"
+  },
+  "keywords": [],
+  "author": "Luke Swiderski",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jsdom": "^25.0.1"
+  }
+}
