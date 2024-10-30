@@ -153,6 +153,62 @@
   </div>
 </section>
 
+<section id="venues" class="mb-5">
+  <div class="container-lg">
+    <h2 class="text-center mb-4">Manage Venues</h2>
+
+    <!-- Add Venue Form -->
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-8">
+        <form id="add-venue-form" class="p-3 bg-light rounded">
+          <h3 class="h5 mb-3">Add New Venue</h3>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input type="text" name="venue_name" class="form-control" placeholder="Venue Name" required>
+            </div>
+            <div class="col-md-6">
+              <input type="text" name="address" class="form-control" placeholder="Address" required>
+            </div>
+            <div class="col-md-4">
+              <input type="text" name="city" class="form-control" placeholder="City" required>
+            </div>
+            <div class="col-md-4">
+              <input type="text" name="state" class="form-control" placeholder="State" required>
+            </div>
+            <div class="col-md-4">
+              <input type="text" name="zip" class="form-control" placeholder="ZIP" required>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-dark">Add Venue</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Venues Table -->
+    <div class="table-responsive">
+      <table id="venues-table" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Venue Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>ZIP</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Populated dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<script src="dashboard.js"></script>
+<script src="venues.js"></script>
+
 </body>
 </html>
-<script src="dashboard.js"></script>
