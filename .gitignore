@@ -16,3 +16,4 @@ env.php
 includes/email_script.log
 .phpunit.result.cache
 includes/debug.log
+node_modules/
