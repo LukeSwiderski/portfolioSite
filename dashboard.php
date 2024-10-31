@@ -155,7 +155,7 @@
 
 <section id="venues" class="mb-5">
   <div class="container-lg">
-    <h2 class="text-center mb-4">Manage Venues</h2>
+    <h1 class="text-center mb-4 fw-bold">Manage Venues</h1>
 
     <!-- Add Venue Form -->
     <div class="row justify-content-center mb-4">
