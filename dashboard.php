@@ -207,8 +207,60 @@
   </div>
 </section>
 
+<section id="email-list" class="mb-5">
+  <div class="container-lg">
+    <h1 class="text-center mb-4 fw-bold">Email List</h1>
+
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-8">
+        <form id="add-email-form" class="p-3 bg-light rounded">
+          <h3 class="h5 mb-3">Add New Email</h3>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input type="text" name="name" class="form-control" placeholder="Name">
+            </div>
+            <div class="col-md-6">
+              <input type="email" name="email" class="form-control" placeholder="Email" required>
+            </div>
+            <div class="col-md-6">
+              <select name="subscribe_status" class="form-select" required>
+                <option value="">Select Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="unsubscribed">Unsubscribed</option>
+                <option value="pending">Pending</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-dark">Add Email</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Email Table -->
+    <div class="table-responsive">
+      <table id="emails-table" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Populated dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <script src="dashboard.js"></script>
 <script src="venues.js"></script>
+<script src="email.js"></script>
 
 </body>
 </html>
