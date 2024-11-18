@@ -138,11 +138,22 @@
             </select>
           </div>
         </div>
+
         <label for="message-area" class="form-label"></label>
         <div class="input-group mb-4 justify-content-center">
           <textarea name="message-area" id="message-area" rows="10" cols="80"></textarea>
           <input type="hidden" id="hidden-html-message" name="html-message">
         </div>
+
+        <div class="mb-4 text-center">
+          <button type="button" class="btn btn-outline-dark" id="select-photo-btn">Select Photo</button>
+          <div id="selected-photo-preview" class="mt-2 d-none">
+            <img src="" alt="Selected photo" style="max-width: 150px">
+            <button type="button" class="btn btn-sm btn-link text-danger" id="remove-photo-btn">Remove</button>
+          </div>
+          <input type="hidden" id="selected-photo-id" name="photo_id">
+        </div>
+
         <div class="mb-4 text-center">
           <button class="btn btn-dark" id="generate-btn" type="button">Generate</button>
           <button class="btn btn-dark" id="submit-btn" type="submit">Submit</button>
@@ -151,6 +162,23 @@
       </form>
     </div>
   </div>
+
+  <div class="modal fade" id="photoModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Select Photo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="photo-grid" class="row g-3">
+          <!-- Photos populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </section>
 
 <section id="venues" class="mb-5">
@@ -261,6 +289,8 @@
 <script src="dashboard.js"></script>
 <script src="venues.js"></script>
 <script src="email.js"></script>
+<script src="photos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
 </html>

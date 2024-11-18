@@ -153,13 +153,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Function to generate the message based on the selected values
   window.generateMessage = function (venue, address, city, state, zip, month, date, startTime, endTime, messageType, action = '', plainMessage = '', htmlMessage = '') {
+    const photo_id = document.getElementById('selected-photo-id')?.value || null;
+  
     return fetch('http://localhost/LukeSwiderski/includes/email.inc.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        venue, address, city, state, zip, month, date, startTime, endTime, messageType, action, plainMessage, htmlMessage
+        venue, address, city, state, zip, month, date, startTime, endTime, messageType, action, plainMessage, htmlMessage, photo_id
       })
     })
     .then(response => {

@@ -20,7 +20,8 @@ logMessage("Script started");
 $username = $_ENV['EMAIL_USERNAME'];
 $password = $_ENV['EMAIL_PASSWORD'];
 
-function generateMessage($venue, $address, $city, $state, $zip, $month, $date, $startTime, $endTime, $messageType, $messageArea = '') {
+function generateMessage($venue, $address, $city, $state, $zip, $month, $date, $startTime, $endTime, $messageType, $messageArea = '', $photo_id = null) {
+  global $pdo;
   $htmlMessage = '';
   $date = date('F jS', strtotime($month . '/' . $date));
   $start_time = date('g:i A', strtotime($startTime));
@@ -42,6 +43,17 @@ function generateMessage($venue, $address, $city, $state, $zip, $month, $date, $
     $subject = 'Hello Friends';
   }
 
+  $photoHtml = '';
+  if ($photo_id) {
+    $stmt = $pdo->prepare('SELECT path FROM photos WHERE id = ?');
+    $stmt->execute([$photo_id]);
+    $photo = $stmt->fetch();
+    if ($photo) {
+      $fullPath = 'http://' . $_SERVER['HTTP_HOST'] . $photo['path'];
+      $photoHtml = "<img src='{$fullPath}' alt='Event Photo' style='max-width: 600px; width: 100%; height: auto; margin-bottom: 20px;'>";
+    }
+  }
+
 $htmlMessage = <<<EOD
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +73,7 @@ $htmlMessage = <<<EOD
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; margin: 0; padding: 0;">
     <div class="mobile-container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <img src="https://via.placeholder.com/600x300.png?text=Luke's+Promotional+Photo" alt="Luke's Promotional Photo" style="max-width: 100%; height: auto; width: 100%; max-width: 600px;">
+         {$photoHtml}
         
         <h1 class="mobile-heading" style="font-size: 24px; color: #333333; margin-bottom: 20px;">
             {$subject}
@@ -99,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
   }
 
-  $messageData = generateMessage($data['venue'], $data['address'], $data['city'], $data['state'], $data['zip'], $data['month'], $data['date'], $data['startTime'], $data['endTime'], $data['messageType'], $data['plainMessage'] ?? '');
+  $messageData = generateMessage($data['venue'], $data['address'], $data['city'], $data['state'], $data['zip'], $data['month'], $data['date'], $data['startTime'], $data['endTime'], $data['messageType'], $data['plainMessage'] ?? '', $data['photo_id'] ?? null);
   logMessage("Message generated: " . print_r($messageData, true));
 
   if (isset($data['action']) && $data['action'] === 'send') {
