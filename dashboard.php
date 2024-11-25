@@ -157,6 +157,7 @@
         <div class="mb-4 text-center">
           <button class="btn btn-dark" id="generate-btn" type="button">Generate</button>
           <button class="btn btn-dark" id="submit-btn" type="submit">Submit</button>
+          <button class="btn btn-dark" id="test-btn" type="button">Test Email</button>
           <button class="btn btn-dark" id="clear-btn" type="button">Clear</button>
         </div>
       </form>
@@ -290,7 +291,7 @@
 <script src="venues.js"></script>
 <script src="email.js"></script>
 <script src="photos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>`
 
 </body>
 </html>

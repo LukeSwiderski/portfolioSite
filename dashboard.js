@@ -151,6 +151,44 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('message-area').value = '';
   });
 
+  // Test button click handler
+  document.getElementById('test-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    if (!validateFormForGenerate()) {
+      return;
+    }
+
+    const venueSelect = document.getElementById('venue-select');
+    const selectedOption = venueSelect.options[venueSelect.selectedIndex];
+    const venue = venueSelect.value;
+    const address = selectedOption.dataset.address;
+    const city = selectedOption.dataset.city;
+    const state = selectedOption.dataset.state;
+    const zip = selectedOption.dataset.zip;
+    const month = document.getElementById('month-select').value;
+    const date = document.getElementById('date-select').value;
+    const startTime = document.getElementById('start-select').value;
+    const endTime = document.getElementById('end-select').value;
+    const messageType = parseInt(document.getElementById('message-select').value);
+    const messageArea = document.getElementById('message-area').value;
+    const htmlMessage = document.getElementById('hidden-html-message').value;
+    const photo_id = document.getElementById('selected-photo-id')?.value || null;
+
+    generateMessage(venue, address, city, state, zip, month, date, startTime, endTime, messageType, 'test', messageArea, htmlMessage)
+      .then(data => {
+        if (data.success) {
+          alert('Test email sent successfully!');
+        } else {
+          alert('Error sending test email: ' + (data.error || 'Unknown error'));
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error sending test email: ' + error.message);
+      });
+  });
+
   // Function to generate the message based on the selected values
   window.generateMessage = function (venue, address, city, state, zip, month, date, startTime, endTime, messageType, action = '', plainMessage = '', htmlMessage = '') {
     const photo_id = document.getElementById('selected-photo-id')?.value || null;

@@ -15,6 +15,48 @@ function logMessage($message) {
   file_put_contents($logFile, "[$timestamp] $message\n", FILE_APPEND);
 }
 
+function sendTestEmail($pdo, $messageData) {
+  global $username, $password;
+  
+  // Get test recipients
+  $stmt = $pdo->prepare('SELECT name, email FROM email_list WHERE test = 1');
+  $stmt->execute();
+  $testRecipients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+  if (empty($testRecipients)) {
+    return ['error' => 'No test recipients found'];
+  }
+
+  try {
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = $username; 
+    $mail->Password = $password;
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
+    
+    $mail->setFrom($username, 'Luke');
+    
+    foreach ($testRecipients as $recipient) {
+      $mail->addAddress($recipient['email'], $recipient['name']);
+    }
+    
+    $mail->Subject = '[TEST] ' . $messageData['subject'];
+    $mail->Body = $messageData['htmlMessage'];
+    $mail->AltBody = $messageData['plainMessage'];
+    
+    if (!$mail->send()) {
+      return ['error' => 'Error sending test email: ' . $mail->ErrorInfo];
+    }
+    
+    return ['success' => true, 'message' => 'Test email sent successfully!'];
+  } catch (Exception $e) {
+    return ['error' => 'Error sending test email: ' . $e->getMessage()];
+  }
+}
+
 logMessage("Script started");
 
 $username = $_ENV['EMAIL_USERNAME'];
@@ -107,60 +149,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   logMessage("Decoded JSON data: " . print_r($data, true));
 
   if (!isset($data['venue'], $data['address'], $data['city'], $data['state'], $data['zip'], $data['month'], $data['date'], $data['startTime'], $data['endTime'], $data['messageType'])) {
+    logMessage("Failed validation check");
     echo json_encode(['error' => 'Invalid request data']);
     exit;
   }
 
+  logMessage("Passed validation check");
+
   $messageData = generateMessage($data['venue'], $data['address'], $data['city'], $data['state'], $data['zip'], $data['month'], $data['date'], $data['startTime'], $data['endTime'], $data['messageType'], $data['plainMessage'] ?? '', $data['photo_id'] ?? null);
   logMessage("Message generated: " . print_r($messageData, true));
 
-  if (isset($data['action']) && $data['action'] === 'send') {
-    logMessage("Sending email requested");
+  if (isset($data['action']) && !empty($data['action'])) {
+    logMessage("Action is set: " . $data['action']);
+    if ($data['action'] === 'send') {
+      logMessage("Sending email requested");
     
-    $recipient = new Recipient($pdo);
-    $activeRecipients = $recipient->getRecipients();
-    logMessage("Active recipients: " . print_r($activeRecipients, true));
+      $recipient = new Recipient($pdo);
+      $activeRecipients = $recipient->getRecipients();
+      logMessage("Active recipients: " . print_r($activeRecipients, true));
 
-    try {
-      $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-      $mail->isSMTP();
-      $mail->Host = 'smtp.gmail.com';
-      $mail->SMTPAuth = true;
-      $mail->Username = $username;
-      $mail->Password = $password;
-      $mail->SMTPSecure = 'tls';
-      $mail->Port = 587;
-      $mail->SMTPDebug = 2;
-      $mail->Debugoutput = function($str, $level) {
-        logMessage("SMTP ($level): $str");
-      };
+      try {
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = $username;
+        $mail->Password = $password;
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+        $mail->SMTPDebug = 2;
+        $mail->Debugoutput = function($str, $level) {
+          logMessage("SMTP ($level): $str");
+        };
 
-      $mail->setFrom($username, 'Luke');
+        $mail->setFrom($username, 'Luke');
 
-      foreach ($activeRecipients as ['email' => $email, 'name' => $name]) {
-        $mail->addAddress($email, $name);
+        foreach ($activeRecipients as ['email' => $email, 'name' => $name]) {
+          $mail->addAddress($email, $name);
+        }
+        
+        $mail->Subject = $messageData['subject'];
+        $mail->Body = $messageData['htmlMessage'];
+        $mail->AltBody = $messageData['plainMessage'];
+
+        logMessage("PHPMailer configured, about to send");
+
+        if (!$mail->send()) {
+          $error = $mail->ErrorInfo;
+          logMessage("Error sending email: " . $error);
+          echo json_encode(['error' => 'Error sending email: ' . $error]);
+        } else {
+          logMessage("Email sent successfully!");
+          echo json_encode(['success' => true, 'message' => 'Email sent successfully!']);
+        }
+      } catch (Exception $e) {
+        logMessage("Exception caught: " . $e->getMessage());
+        echo json_encode(['error' => 'Error sending email: ' . $e->getMessage()]);
       }
-      
-      $mail->Subject = $messageData['subject'];
-      $mail->Body = $messageData['htmlMessage'];
-      $mail->AltBody = $messageData['plainMessage'];
-
-      logMessage("PHPMailer configured, about to send");
-
-      if (!$mail->send()) {
-        $error = $mail->ErrorInfo;
-        logMessage("Error sending email: " . $error);
-        echo json_encode(['error' => 'Error sending email: ' . $error]);
-      } else {
-        logMessage("Email sent successfully!");
-        echo json_encode(['success' => true, 'message' => 'Email sent successfully!']);
-      }
-    } catch (Exception $e) {
-      logMessage("Exception caught: " . $e->getMessage());
-      echo json_encode(['error' => 'Error sending email: ' . $e->getMessage()]);
+    } else if ($data['action'] === 'test') {
+      logMessage("Sending test email requested");
+      $result = sendTestEmail($pdo, $messageData);
+      echo json_encode($result);
     }
   } else {
+    logMessage("About to send response");
     echo json_encode(['success' => true, 'messageData' => $messageData]);
+    logMessage("Response sent");
   }
 } else {
   echo json_encode(['error' => 'Invalid request method']);
