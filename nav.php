@@ -21,7 +21,7 @@
           <a href="index.php#tech" class="fw-bold nav-link">Tech</a>
         </li>
         <li class="nav-item">
-          <a href="index.php#projects" class="fw-bold nav-link">Projects</a>
+          <a href="http://localhost/LukeSwiderski/projects.php" class="fw-bold nav-link">Projects</a>
         </li>
         <li class="nav-item">
           <a href="index.php#contact" class="fw-bold nav-link">Contact</a>
