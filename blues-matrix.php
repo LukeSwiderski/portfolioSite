@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
-    <title>Email Service - Luke Swiderski</title>
+    <title>Blues Matrix - Luke Swiderski</title>
     <style>
         .project-section {
             padding: 4rem 0;
@@ -42,19 +42,17 @@
 
     <div class="container">
         <div class="project-section">
-            <h1 class="display-4 mb-4">Email Service Project</h1>
-            <p class="lead">A custom email management system for musicians to communicate with their audience.</p>
-            
+            <h1 class="display-4 mb-4">Blues Matrix Project</h1>
+            <p class="lead">An interactive web application designed to help musicians visualize and learn blues scale patterns through an innovative matrix interface.</p>
+
             <section id="demo-video" class="bg-light">
               <div class="container-lg">
                 <div class="row justify-content-center">
                   <div class="col-lg-8">
-                    <h2 class="text-center mb-2">Demo Video</h2>
-                    <p class="text-center mb-4 text-muted">What it does and how it's made</p>
-                    <!-- 16:9 aspect ratio wrapper -->
+                    <h2 class="text-center mb-4">Demo Video</h2>
                     <div class="ratio ratio-16x9">
-                      <iframe 
-                        src="https://www.youtube.com/embed/d-ogX-zK_Z4"
+                    <iframe 
+                        src="https://www.youtube.com/embed/GvjNUynbQJ4"
                         title="Email Service Demo Video" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
@@ -69,30 +67,41 @@
                 <div class="col-md-6">
                     <h2>Features</h2>
                     <ul class="list-unstyled">
-                        <li>✓ Automated email generation for gig announcements</li>
-                        <li>✓ Subscriber list management</li>
-                        <li>✓ Venue database integration</li>
-                        <li>✓ Template-based email composition</li>
-                        <li>✓ Photo attachment capabilities</li>
+                        <li>✓ Interactive technique visualization</li>
+                        <li>✓ Random pattern generation</li>
+                        <li>✓ Customizable technique highlighting</li>
+                        <li>✓ Multiple technique pattern support</li>
+                        <li>✓ Beginner-friendly interface</li>
                     </ul>
                 </div>
                 <div class="col-md-6">
                     <h2>Tech Stack</h2>
                     <div>
-                        <span class="tech-stack">PHP</span>
-                        <span class="tech-stack">MySQL</span>
+                        <span class="tech-stack">HTML5</span>
+                        <span class="tech-stack">CSS3</span>
                         <span class="tech-stack">JavaScript</span>
-                        <span class="tech-stack">Bootstrap</span>
-                        <span class="tech-stack">PHPMailer</span>
                     </div>
                 </div>
             </div>
 
             <div class="mt-5">
+                <h2>Project Description</h2>
+                <p>The Blues Matrix is an educational tool designed to help musicians understand and visualize blues scale patterns. It presents chord progressions in a matrix format, making it easier to see the relationships between different notes and scale positions.</p>
+                
+                <p>This tool is particularly useful for:</p>
+                <ul>
+                    <li>Beginning musicians learning scale patterns</li>
+                    <li>Intermediate players exploring new techniques</li>
+                    <li>Teachers demonstrating chord progression concepts</li>
+                    <li>Anyone interested in music theory visualization</li>
+                </ul>
+            </div>
+
+            <div class="mt-5">
                 <h2>Project Links</h2>
                 <div class="d-flex gap-3">
-                    <a href="https://github.com/LukeSwiderski/portfolioSite/tree/working-version" class="btn btn-dark">View on GitHub</a>
-                    <a href="http://localhost/LukeSwiderski/demo/demo.php" class="btn btn-primary">Try Live Demo</a>
+                    <a href="https://github.com/LukeSwiderski/bluesMatrix" class="btn btn-dark">View on GitHub</a>
+                    <a href="https://www.lukeswiderski.com/bluesMatrix/bluesMatrix.html" class="btn btn-primary">Try Live Demo</a>
                 </div>
             </div>
         </div>

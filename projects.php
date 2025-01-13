@@ -89,7 +89,7 @@
                         <p class="project-description">
                             A custom email application for managing subscriber lists and sending automated notifications.
                         </p>
-                        <a href="#" class="btn btn-dark">Learn More</a>
+                        <a href="http://localhost/LukeSwiderski/email-service.php" class="btn btn-dark">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@
                         <p class="project-description">
                             An interactive tool for exploring and learning blues scale patterns and progressions.
                         </p>
-                        <a href="#" class="btn btn-dark">Learn More</a>
+                        <a href="http://localhost/LukeSwiderski/blues-matrix.php" class="btn btn-dark">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                         <p class="project-description">
                             A comprehensive guide to JavaScript array methods with interactive examples.
                         </p>
-                        <a href="#" class="btn btn-dark">Learn More</a>
+                        <a href="http://localhost/LukeSwiderski/array-methods.php" class="btn btn-dark">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -131,7 +131,7 @@
                         <p class="project-description">
                             Real-time weather information application using modern web technologies.
                         </p>
-                        <a href="#" class="btn btn-dark">Learn More</a>
+                        <a href="http://localhost/LukeSwiderski/weather-app.php" class="btn btn-dark">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -145,7 +145,7 @@
                         <p class="project-description">
                             A showcase of my web development skills using PHP, MySQL, and Bootstrap.
                         </p>
-                        <a href="#" class="btn btn-dark">Learn More</a>
+                        <a href="http://localhost/LukeSwiderski/this-site.php" class="btn btn-dark">Learn More</a>
                     </div>
                 </div>
             </div>

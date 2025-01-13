@@ -33,7 +33,7 @@
           <div class="col-md-5 text-center text-md-start offset-md-1 mt-md-5">
             <h1 class="display-4 fw-bold">Software Developer</h1>
             <p>I'm Luke, a<strong> full-stack software developer </strong>working on web-apps, websites, and open-source projects such as <strong>Mozilla Firefox</strong>  and <strong>Google Chrome</strong>. </p>
-            <a href="#projects" class="btn btn-dark btn-lg">View my work</a>
+            <a href="http://localhost/LukeSwiderski/projects.php" class="btn btn-dark btn-lg">View my work</a>
           </div>
         </div>
       </div>
