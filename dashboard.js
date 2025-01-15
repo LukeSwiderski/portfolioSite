@@ -1,4 +1,71 @@
 document.addEventListener('DOMContentLoaded', function () {
+  function showEmailResults(results) {
+    // First check if modal already exists and remove it
+    let existingModal = document.getElementById('emailResultsModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    // Create modal HTML
+    const modalHTML = `
+        <div class="modal fade" id="emailResultsModal" tabindex="-1" aria-labelledby="emailResultsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="emailResultsModalLabel">Email Sending Results</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Success Alert -->
+                        <div class="alert alert-success" role="alert">
+                            Successfully sent to ${results.successful} recipient${results.successful !== 1 ? 's' : ''}
+                        </div>
+                        
+                        ${results.failed > 0 ? `
+                            <!-- Failed Alert -->
+                            <div class="alert alert-danger" role="alert">
+                                Failed to send to ${results.failed} recipient${results.failed !== 1 ? 's' : ''}
+                            </div>
+                            
+                            <!-- Failed Details -->
+                            <div class="mt-3">
+                                <h6>Failed Email Details:</h6>
+                                <div class="list-group">
+                                    ${results.failedDetails.map(failure => `
+                                        <div class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-1">${failure.name}</h6>
+                                                <small class="text-muted">${failure.email}</small>
+                                            </div>
+                                            <p class="mb-1 text-danger">Error: ${failure.error}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Add modal to document
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // Show the modal
+    const modalElement = document.getElementById('emailResultsModal');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+
+    // Clean up modal when hidden
+    modalElement.addEventListener('hidden.bs.modal', function () {
+        modalElement.remove();
+    });
+}
+
   window.validateFormForGenerate = function () {
     const venue = document.getElementById('venue-select').value;
     const month = document.getElementById('month-select').value;
@@ -91,46 +158,50 @@ document.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
     console.log('Submit button clicked');
 
+    if (!validateFormForGenerate()) {
+        return;
+    }
+
     const messageArea = document.getElementById('message-area').value;
     const htmlMessage = document.getElementById('hidden-html-message').value;
 
     if (!messageArea) {
-      console.error('Message area element not found!');
-      alert('Please write or generate a message using the drop down menues.');
-      return;
+        alert('Please write or generate a message using the drop down menus.');
+        return;
     }
-  
-    console.log('Message area value:', messageArea.value);
-  
 
     const venueSelect = document.getElementById('venue-select');
     const selectedOption = venueSelect.options[venueSelect.selectedIndex];
-    const venue = venueSelect.value;
-    const address = selectedOption.dataset.address;
-    const city = selectedOption.dataset.city;
-    const state = selectedOption.dataset.state;
-    const zip = selectedOption.dataset.zip;
-    const month = document.getElementById('month-select').value;
-    const date = document.getElementById('date-select').value;
-    const startTime = document.getElementById('start-select').value;
-    const endTime = document.getElementById('end-select').value;
-    const messageType = parseInt(document.getElementById('message-select').value);
 
-    generateMessage(venue, address, city, state, zip, month, date, startTime, endTime, messageType, 'send', messageArea, htmlMessage)
-      .then((data) => {
+    generateMessage(
+        venueSelect.value,
+        selectedOption.dataset.address,
+        selectedOption.dataset.city,
+        selectedOption.dataset.state,
+        selectedOption.dataset.zip,
+        document.getElementById('month-select').value,
+        document.getElementById('date-select').value,
+        document.getElementById('start-select').value,
+        document.getElementById('end-select').value,
+        parseInt(document.getElementById('message-select').value),
+        'send',
+        messageArea,
+        htmlMessage
+    )
+    .then((data) => {
         console.log('Server response:', data);
-        if (data.success) {
-          alert('Email sent successfully!');
+        if (data.success && data.results) {
+            showEmailResults(data.results);
         } else {
-          alert('Error sending email: ' + (data.error || 'Unknown error'));
+            alert('Error sending email: ' + (data.error || 'Unknown error'));
         }
-      })
-      .catch((error) => {
+    })
+    .catch((error) => {
         console.error('Error:', error);
         alert('Error sending email: ' + error.message);
-      })
-      .finally(() => {
-        // Reset form regardless of success or failure
+    })
+    .finally(() => {
+        // Reset form
         document.getElementById('venue-select').selectedIndex = 0;
         document.getElementById('month-select').selectedIndex = 0;
         document.getElementById('date-select').innerHTML = '<option value="">Select Date</option>';
@@ -138,12 +209,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('start-select').selectedIndex = 0;
         document.getElementById('end-select').selectedIndex = 0;
         document.getElementById('message-select').selectedIndex = 0;
-        
         document.getElementById('message-area').value = "";
         document.getElementById('hidden-html-message').value = '';
-
-        console.log('Form reset completed');
-      });
+    });
   });
 
   // Clear button click handler
@@ -177,15 +245,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     generateMessage(venue, address, city, state, zip, month, date, startTime, endTime, messageType, 'test', messageArea, htmlMessage)
       .then(data => {
+        console.log('Server response for test:', data);
         if (data.success) {
-          alert('Test email sent successfully!');
+          // If there are results, show them in the modal
+          if (data.results) {
+            showEmailResults(data.results);
+          } else {
+            // Legacy success handling
+            showEmailResults({
+              successful: 1,
+              failed: 0,
+              failedDetails: []
+            });
+          }
         } else {
-          alert('Error sending test email: ' + (data.error || 'Unknown error'));
+          showEmailResults({
+            successful: 0,
+            failed: 1,
+            failedDetails: [{
+              name: 'Test Recipient',
+              email: 'test@example.com',
+              error: data.error || 'Unknown error'
+            }]
+          });
         }
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('Error sending test email: ' + error.message);
+        showEmailResults({
+          successful: 0,
+          failed: 1,
+          failedDetails: [{
+            name: 'Test Recipient',
+            email: 'test@example.com',
+            error: error.message
+          }]
+        });
       });
   });
 
@@ -211,6 +306,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return response.text();
     })
     .then(text => {
+      console.log('Raw response from server:', text);
       try {
         return JSON.parse(text);
       } catch (e) {
