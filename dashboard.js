@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const htmlMessage = document.getElementById('hidden-html-message').value;
     const photo_id = document.getElementById('selected-photo-id')?.value || null;
 
-    generateMessage(venue, address, city, state, zip, month, date, startTime, endTime, messageType, 'test', messageArea, htmlMessage)
+    generateMessage(venue, address, city, state, zip, month, date, startTime, endTime, messageType, 'test', messageArea, htmlMessage, photo_id)
       .then(data => {
         console.log('Server response for test:', data);
         if (data.success) {

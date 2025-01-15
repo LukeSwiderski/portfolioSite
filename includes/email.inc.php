@@ -139,15 +139,22 @@ function generateMessage($venue, $address, $city, $state, $zip, $month, $date, $
     $zip = htmlspecialchars($zip, ENT_QUOTES, 'UTF-8');
     $fullAddress = "$address, $city, $state $zip";
 
-    if ($messageType == 1) {
-        $plainMessage = "Hi friends, just writing to let you know I'll be playing at $venue on $date from $start_time-$end_time. Have a great day!";
-        $subject = "$venue on $date";
-    } else if ($messageType == 2) {
-        $plainMessage = "Reminder: I'll be playing at $venue on $date from $start_time-$end_time! Hope to see you there!";
-        $subject = "Reminder: $venue on $date";
+    // If messageArea is provided, use it as the custom message
+    if (!empty($messageArea)) {
+      $plainMessage = $messageArea;
+      $subject = "$venue on $date";
     } else {
-        $plainMessage = $messageArea;
-        $subject = 'Hello Friends';
+        // Otherwise use the template messages based on messageType
+        if ($messageType == 1) {
+            $plainMessage = "Hi friends, just writing to let you know I'll be playing at $venue on $date from $start_time-$end_time. Have a great day!";
+            $subject = "$venue on $date";
+        } else if ($messageType == 2) {
+            $plainMessage = "Reminder: I'll be playing at $venue on $date from $start_time-$end_time! Hope to see you there!";
+            $subject = "Reminder: $venue on $date";
+        } else {
+            $plainMessage = "I'll be playing at $venue on $date from $start_time-$end_time.";
+            $subject = "$venue on $date";
+        }
     }
 
     $photoHtml = '';
