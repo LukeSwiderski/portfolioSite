@@ -163,7 +163,7 @@ function generateMessage($venue, $address, $city, $state, $zip, $month, $date, $
         $stmt->execute([$photo_id]);
         $photo = $stmt->fetch();
         if ($photo) {
-            $fullPath = 'http://' . $_SERVER['HTTP_HOST'] . $photo['path'];
+            $fullPath = $photo['path'];
             $photoHtml = "<img src='{$fullPath}' alt='Event Photo' style='max-width: 600px; width: 100%; height: auto; margin-bottom: 20px;'>";
         }
     }

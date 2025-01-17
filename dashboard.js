@@ -211,6 +211,17 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('message-select').selectedIndex = 0;
         document.getElementById('message-area').value = "";
         document.getElementById('hidden-html-message').value = '';
+
+        // Clear photo selection
+        document.getElementById('selected-photo-id').value = '';
+        const photoPreview = document.getElementById('selected-photo-preview');
+        if (photoPreview) {
+            photoPreview.classList.add('d-none');
+            const previewImg = photoPreview.querySelector('img');
+            if (previewImg) {
+                previewImg.src = '';
+            }
+        }
     });
   });
 
