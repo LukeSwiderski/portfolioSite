@@ -48,7 +48,7 @@
             <span>HEY, I'M LUKE 👋</span>
             <h2 class="fw-bold">About Me</h2>
             <p>I started programming in 2018 and have worked on websites for people, businesses, and myself.  I've made apps to make my own life easier and I've worked on open-source projects like Mozilla Firefox and Google Chrome, successfully fixing numerous bugs.</p>
-            <a href="#About" class="btn btn-dark btn-lg">More about me</a>
+            <a href="http://localhost/LukeSwiderski/about.php" class="btn btn-dark btn-lg">More about me</a>
           </div>
           <div class="col-md-5 text-center d-md-block">
             <img class="img-fluid rounded-4 mt-4" src="./assets/working.png" loading="lazy" alt="Luke working">

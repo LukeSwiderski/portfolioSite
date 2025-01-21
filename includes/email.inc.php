@@ -128,91 +128,154 @@ $username = $_ENV['EMAIL_USERNAME'];
 $password = $_ENV['EMAIL_PASSWORD'];
 
 function generateMessage($venue, $address, $city, $state, $zip, $month, $date, $startTime, $endTime, $messageType, $messageArea = '', $photo_id = null) {
-    global $pdo;
-    $htmlMessage = '';
-    $date = date('F jS', strtotime($month . '/' . $date));
-    $start_time = date('g:i A', strtotime($startTime));
-    $end_time = date('g:i A', strtotime($endTime));
-    $address = htmlspecialchars($address, ENT_QUOTES, 'UTF-8');
-    $city = htmlspecialchars($city, ENT_QUOTES, 'UTF-8');
-    $state = htmlspecialchars($state, ENT_QUOTES, 'UTF-8');
-    $zip = htmlspecialchars($zip, ENT_QUOTES, 'UTF-8');
-    $fullAddress = "$address, $city, $state $zip";
+  global $pdo;
+  $htmlMessage = '';
+  $date = date('F jS', strtotime($month . '/' . $date));
+  $start_time = date('g:i A', strtotime($startTime));
+  $end_time = date('g:i A', strtotime($endTime));
+  $address = htmlspecialchars($address, ENT_QUOTES, 'UTF-8');
+  $city = htmlspecialchars($city, ENT_QUOTES, 'UTF-8');
+  $state = htmlspecialchars($state, ENT_QUOTES, 'UTF-8');
+  $zip = htmlspecialchars($zip, ENT_QUOTES, 'UTF-8');
+  $fullAddress = "$address, $city, $state $zip";
 
-    // If messageArea is provided, use it as the custom message
-    if (!empty($messageArea)) {
-      $plainMessage = $messageArea;
-      $subject = "$venue on $date";
-    } else {
-        // Otherwise use the template messages based on messageType
-        if ($messageType == 1) {
-            $plainMessage = "Hi friends, just writing to let you know I'll be playing at $venue on $date from $start_time-$end_time. Have a great day!";
-            $subject = "$venue on $date";
-        } else if ($messageType == 2) {
-            $plainMessage = "Reminder: I'll be playing at $venue on $date from $start_time-$end_time! Hope to see you there!";
-            $subject = "Reminder: $venue on $date";
-        } else {
-            $plainMessage = "I'll be playing at $venue on $date from $start_time-$end_time.";
-            $subject = "$venue on $date";
-        }
+  // If messageArea is provided, use it as the custom message
+  if (!empty($messageArea)) {
+    $plainMessage = $messageArea;
+    $subject = "$venue on $date";
+  } else {
+      // Otherwise use the template messages based on messageType
+      if ($messageType == 1) {
+          $plainMessage = "Hi friends, just writing to let you know I'll be playing at $venue on $date from $start_time-$end_time. Have a great day!";
+          $subject = "$venue on $date";
+      } else if ($messageType == 2) {
+          $plainMessage = "Reminder: I'll be playing at $venue on $date from $start_time-$end_time! Hope to see you there!";
+          $subject = "Reminder: $venue on $date";
+      } else {
+          $plainMessage = "I'll be playing at $venue on $date from $start_time-$end_time.";
+          $subject = "$venue on $date";
+      }
+  }
+
+  $photoHtml = '';
+if ($photo_id) {
+    $stmt = $pdo->prepare('SELECT path FROM photos WHERE id = ?');
+    $stmt->execute([$photo_id]);
+    $photo = $stmt->fetch();
+    if ($photo) {
+        $fullPath = $photo['path'];
+        $photoHtml = "<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\">
+            <tr>
+                <td align=\"center\" style=\"padding-bottom: 20px;\">
+                    <img src=\"{$fullPath}\" alt=\"Event Photo\" width=\"600\" style=\"display: block; width: 100%; max-width: 600px; height: auto; border: 0;\">
+                </td>
+            </tr>
+        </table>";
     }
+}
 
-    $photoHtml = '';
-    if ($photo_id) {
-        $stmt = $pdo->prepare('SELECT path FROM photos WHERE id = ?');
-        $stmt->execute([$photo_id]);
-        $photo = $stmt->fetch();
-        if ($photo) {
-            $fullPath = $photo['path'];
-            $photoHtml = "<img src='{$fullPath}' alt='Event Photo' style='max-width: 600px; width: 100%; height: auto; margin-bottom: 20px;'>";
-        }
-    }
-
-    $htmlMessage = <<<EOD
+$htmlMessage = <<<EOD
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Luke's Gig Announcement</title>
     <!--[if !mso]><!-->
     <style type="text/css">
         @media only screen and (max-width: 480px) {
             .mobile-text { font-size: 18px !important; }
             .mobile-heading { font-size: 22px !important; }
-            .mobile-container { padding: 10px !important; }
+            .mobile-container { padding: 10px !important; width: 100% !important; }
         }
     </style>
     <!--<![endif]-->
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; margin: 0; padding: 0;">
+<body style="margin: 0; padding: 0; min-width: 100%; background-color: #ffffff;">
+    <!--[if mso]>
+    <style type="text/css">
+        body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
+    </style>
+    <![endif]-->
+
+    <!--[if mso]>
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" align="center">
+    <tr>
+    <td>
+    <![endif]-->
     <div class="mobile-container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
-         {$photoHtml}
-        
-        <h1 class="mobile-heading" style="font-size: 24px; color: #333333; margin-bottom: 20px;">
+        {$photoHtml}
+        <!--[if mso]>
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+        <td style="padding: 0 0 20px 0;">
+        <![endif]-->
+        <h1 class="mobile-heading" style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 24px; color: #333333; margin: 0 0 20px 0; padding: 0;">
             {$subject}
         </h1>
+        <!--[if mso]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
         
-        <p class="mobile-text" style="font-size: 16px; margin-bottom: 15px;">
+        <!--[if mso]>
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+        <td style="padding: 0 0 15px 0;">
+        <![endif]-->
+        <p class="mobile-text" style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin: 0 0 15px 0;">
             {$plainMessage}
         </p>
+        <!--[if mso]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
         
-        <p class="mobile-text" style="font-size: 16px; margin-bottom: 15px; font-style: italic; margin-top: 10px;">
+        <!--[if mso]>
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+        <td style="padding: 0 0 15px 0; font-style: italic;">
+        <![endif]-->
+        <p class="mobile-text" style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin: 0 0 15px 0; font-style: italic;">
             Venue Address: {$fullAddress}
         </p>
+        <!--[if mso]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
         
-        <p class="mobile-text" style="font-size: 16px; margin-top: 20px; font-weight: bold;">
+        <!--[if mso]>
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+        <td style="padding: 20px 0 0 0; font-weight: bold;">
+        <![endif]-->
+        <p class="mobile-text" style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin: 20px 0 0 0; font-weight: bold;">
             Best, Luke
         </p>
+        <!--[if mso]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
     </div>
+    <!--[if mso]>
+    </td>
+    </tr>
+    </table>
+    <![endif]-->
 </body>
 </html>
 EOD;
-    return [
-        "plainMessage" => $plainMessage,
-        "htmlMessage" => $htmlMessage,
-        "subject" => $subject
-    ];
+  
+  return [
+    "plainMessage" => $plainMessage,
+    "htmlMessage" => $htmlMessage,
+    "subject" => $subject
+  ];
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
