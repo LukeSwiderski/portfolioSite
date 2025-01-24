@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 function displayVenues(array $venues) { 
 ?>
-<select class="form-select w-auto" id="venue-select" name="venue-select">
+<select class="form-select w-auto" id="venue-select" name="venue-select" style="max-width: 146.5px;">
   <option value="">Select Venue</option>
   <?php foreach ($venues as $venue) { ?>
     <option 
