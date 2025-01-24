@@ -68,7 +68,7 @@
       <div id="cardRow" class="card-row">
         <!-- Cards get populated here -->
       </div>
-      <div id="tech-paragraph" class="ml-5 mt-3">
+      <div id="tech-paragraph" class="class=fs-5 lh-base font-sans-serif p-4 mt-4">
         <!-- paragraph gets populated here -->
       </div>
     </div>

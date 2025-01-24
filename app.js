@@ -17,7 +17,7 @@
       ],
       "MySQL": [
         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg",
-        "I use MySQL to store data.  Its widely supported, it's tried and true. It goes with php like peanut butter and jelly.  Whether you need to build a login system from scratch or store a few items in a todo list, MySQL is the Toyota Camry of databases."
+        "I use MySQL to store data.  Its widely supported, it's tried and true. It goes with php like peanut butter and jelly.  Whether you need to build a login system from scratch or store a few items in a todo list, MySQL is the Ford F150 of databases."
       ],
       "React":  [
         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
