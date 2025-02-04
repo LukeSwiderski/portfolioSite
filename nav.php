@@ -27,7 +27,7 @@
           <a href="index.php#contact" class="fw-bold nav-link">Contact</a>
         </li>
         <li class="nav-item">
-          <a href="index.php#resume" class="fw-bold nav-link">Resume</a>
+          <a href="http://localhost/LukeSwiderski/resume.html" class="fw-bold nav-link">Resume</a>
         </li>
         <li class="nav-item">
           <a href="dashboard.php" class="fw-bold nav-link">Dashboard</a>
