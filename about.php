@@ -16,11 +16,21 @@
       }
       
       .about-image {
-        width: 500px;
-        height: 500px;
-        object-fit: cover;
+        width: 100%;
+        max-width: 500px;
+        height: auto;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+      }
+
+      @media (max-width: 768px) {
+        .about-image {
+          max-width: 100%;
+          margin-left: auto;
+          margin-right: auto;
+          display: block;
+        }
       }
 
       .section-content {
